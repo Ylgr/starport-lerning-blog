@@ -1,0 +1,13 @@
+syntax = "proto3";
+package ylgr.starportlerningblog.starportlerningblog;
+
+// this line is used by starport scaffolding # proto/tx/import
+
+option go_package = "github.com/ylgr/starport-lerning-blog/x/starportlerningblog/types";
+
+// Msg defines the Msg service.
+service Msg {
+    // this line is used by starport scaffolding # proto/tx/rpc
+}
+
+// this line is used by starport scaffolding # proto/tx/message
