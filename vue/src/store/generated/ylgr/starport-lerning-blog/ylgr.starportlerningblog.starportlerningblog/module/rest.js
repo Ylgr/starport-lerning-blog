@@ -140,6 +140,34 @@ export class Api extends HttpClient {
          * No description
          *
          * @tags Query
+         * @name QueryCommentAll
+         * @request GET:/ylgr/starportlerningblog/starportlerningblog/comment
+         */
+        this.queryCommentAll = (query, params = {}) => this.request({
+            path: `/ylgr/starportlerningblog/starportlerningblog/comment`,
+            method: "GET",
+            query: query,
+            format: "json",
+            ...params,
+        });
+        /**
+         * No description
+         *
+         * @tags Query
+         * @name QueryComment
+         * @summary this line is used by starport scaffolding # 2
+         * @request GET:/ylgr/starportlerningblog/starportlerningblog/comment/{id}
+         */
+        this.queryComment = (id, params = {}) => this.request({
+            path: `/ylgr/starportlerningblog/starportlerningblog/comment/${id}`,
+            method: "GET",
+            format: "json",
+            ...params,
+        });
+        /**
+         * No description
+         *
+         * @tags Query
          * @name QueryPostAll
          * @request GET:/ylgr/starportlerningblog/starportlerningblog/post
          */
@@ -155,7 +183,6 @@ export class Api extends HttpClient {
          *
          * @tags Query
          * @name QueryPost
-         * @summary this line is used by starport scaffolding # 2
          * @request GET:/ylgr/starportlerningblog/starportlerningblog/post/{id}
          */
         this.queryPost = (id, params = {}) => this.request({

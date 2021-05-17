@@ -9,11 +9,37 @@ export interface RpcStatus {
     message?: string;
     details?: ProtobufAny[];
 }
+export interface StarportlerningblogComment {
+    creator?: string;
+    /** @format uint64 */
+    id?: string;
+    body?: string;
+    postID?: string;
+}
+export interface StarportlerningblogMsgCreateCommentResponse {
+    /** @format uint64 */
+    id?: string;
+}
+export declare type StarportlerningblogMsgDeleteCommentResponse = object;
+export declare type StarportlerningblogMsgUpdateCommentResponse = object;
 export interface StarportlerningblogPost {
     creator?: string;
     id?: string;
     title?: string;
     body?: string;
+}
+export interface StarportlerningblogQueryAllCommentResponse {
+    Comment?: StarportlerningblogComment[];
+    /**
+     * PageResponse is to be embedded in gRPC response messages where the
+     * corresponding request message has used PageRequest.
+     *
+     *  message SomeResponse {
+     *          repeated Bar results = 1;
+     *          PageResponse page = 2;
+     *  }
+     */
+    pagination?: V1Beta1PageResponse;
 }
 export interface StarportlerningblogQueryAllPostResponse {
     Post?: StarportlerningblogPost[];
@@ -27,6 +53,9 @@ export interface StarportlerningblogQueryAllPostResponse {
      *  }
      */
     pagination?: V1Beta1PageResponse;
+}
+export interface StarportlerningblogQueryGetCommentResponse {
+    Comment?: StarportlerningblogComment;
 }
 export interface StarportlerningblogQueryGetPostResponse {
     Post?: StarportlerningblogPost;
@@ -143,6 +172,28 @@ export declare class Api<SecurityDataType extends unknown> extends HttpClient<Se
      * No description
      *
      * @tags Query
+     * @name QueryCommentAll
+     * @request GET:/ylgr/starportlerningblog/starportlerningblog/comment
+     */
+    queryCommentAll: (query?: {
+        "pagination.key"?: string;
+        "pagination.offset"?: string;
+        "pagination.limit"?: string;
+        "pagination.countTotal"?: boolean;
+    }, params?: RequestParams) => Promise<HttpResponse<StarportlerningblogQueryAllCommentResponse, RpcStatus>>;
+    /**
+     * No description
+     *
+     * @tags Query
+     * @name QueryComment
+     * @summary this line is used by starport scaffolding # 2
+     * @request GET:/ylgr/starportlerningblog/starportlerningblog/comment/{id}
+     */
+    queryComment: (id: string, params?: RequestParams) => Promise<HttpResponse<StarportlerningblogQueryGetCommentResponse, RpcStatus>>;
+    /**
+     * No description
+     *
+     * @tags Query
      * @name QueryPostAll
      * @request GET:/ylgr/starportlerningblog/starportlerningblog/post
      */
@@ -157,7 +208,6 @@ export declare class Api<SecurityDataType extends unknown> extends HttpClient<Se
      *
      * @tags Query
      * @name QueryPost
-     * @summary this line is used by starport scaffolding # 2
      * @request GET:/ylgr/starportlerningblog/starportlerningblog/post/{id}
      */
     queryPost: (id: string, params?: RequestParams) => Promise<HttpResponse<StarportlerningblogQueryGetPostResponse, RpcStatus>>;
