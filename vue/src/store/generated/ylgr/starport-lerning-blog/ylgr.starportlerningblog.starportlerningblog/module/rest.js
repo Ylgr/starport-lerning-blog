@@ -134,4 +134,35 @@ export class HttpClient {
  * @version version not set
  */
 export class Api extends HttpClient {
+    constructor() {
+        super(...arguments);
+        /**
+         * No description
+         *
+         * @tags Query
+         * @name QueryPostAll
+         * @request GET:/ylgr/starportlerningblog/starportlerningblog/post
+         */
+        this.queryPostAll = (query, params = {}) => this.request({
+            path: `/ylgr/starportlerningblog/starportlerningblog/post`,
+            method: "GET",
+            query: query,
+            format: "json",
+            ...params,
+        });
+        /**
+         * No description
+         *
+         * @tags Query
+         * @name QueryPost
+         * @summary this line is used by starport scaffolding # 2
+         * @request GET:/ylgr/starportlerningblog/starportlerningblog/post/{id}
+         */
+        this.queryPost = (id, params = {}) => this.request({
+            path: `/ylgr/starportlerningblog/starportlerningblog/post/${id}`,
+            method: "GET",
+            format: "json",
+            ...params,
+        });
+    }
 }

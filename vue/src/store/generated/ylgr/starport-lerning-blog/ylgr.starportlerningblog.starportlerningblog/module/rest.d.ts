@@ -9,6 +9,78 @@ export interface RpcStatus {
     message?: string;
     details?: ProtobufAny[];
 }
+export interface StarportlerningblogPost {
+    creator?: string;
+    id?: string;
+    title?: string;
+    body?: string;
+}
+export interface StarportlerningblogQueryAllPostResponse {
+    Post?: StarportlerningblogPost[];
+    /**
+     * PageResponse is to be embedded in gRPC response messages where the
+     * corresponding request message has used PageRequest.
+     *
+     *  message SomeResponse {
+     *          repeated Bar results = 1;
+     *          PageResponse page = 2;
+     *  }
+     */
+    pagination?: V1Beta1PageResponse;
+}
+export interface StarportlerningblogQueryGetPostResponse {
+    Post?: StarportlerningblogPost;
+}
+/**
+* message SomeRequest {
+         Foo some_parameter = 1;
+         PageRequest pagination = 2;
+ }
+*/
+export interface V1Beta1PageRequest {
+    /**
+     * key is a value returned in PageResponse.next_key to begin
+     * querying the next page most efficiently. Only one of offset or key
+     * should be set.
+     * @format byte
+     */
+    key?: string;
+    /**
+     * offset is a numeric offset that can be used when key is unavailable.
+     * It is less efficient than using key. Only one of offset or key should
+     * be set.
+     * @format uint64
+     */
+    offset?: string;
+    /**
+     * limit is the total number of results to be returned in the result page.
+     * If left empty it will default to a value to be set by each app.
+     * @format uint64
+     */
+    limit?: string;
+    /**
+     * count_total is set to true  to indicate that the result set should include
+     * a count of the total number of items available for pagination in UIs.
+     * count_total is only respected when offset is used. It is ignored when key
+     * is set.
+     */
+    countTotal?: boolean;
+}
+/**
+* PageResponse is to be embedded in gRPC response messages where the
+corresponding request message has used PageRequest.
+
+ message SomeResponse {
+         repeated Bar results = 1;
+         PageResponse page = 2;
+ }
+*/
+export interface V1Beta1PageResponse {
+    /** @format byte */
+    nextKey?: string;
+    /** @format uint64 */
+    total?: string;
+}
 export declare type QueryParamsType = Record<string | number, any>;
 export declare type ResponseFormat = keyof Omit<Body, "body" | "bodyUsed">;
 export interface FullRequestParams extends Omit<RequestInit, "body"> {
@@ -67,5 +139,27 @@ export declare class HttpClient<SecurityDataType = unknown> {
  * @version version not set
  */
 export declare class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDataType> {
+    /**
+     * No description
+     *
+     * @tags Query
+     * @name QueryPostAll
+     * @request GET:/ylgr/starportlerningblog/starportlerningblog/post
+     */
+    queryPostAll: (query?: {
+        "pagination.key"?: string;
+        "pagination.offset"?: string;
+        "pagination.limit"?: string;
+        "pagination.countTotal"?: boolean;
+    }, params?: RequestParams) => Promise<HttpResponse<StarportlerningblogQueryAllPostResponse, RpcStatus>>;
+    /**
+     * No description
+     *
+     * @tags Query
+     * @name QueryPost
+     * @summary this line is used by starport scaffolding # 2
+     * @request GET:/ylgr/starportlerningblog/starportlerningblog/post/{id}
+     */
+    queryPost: (id: string, params?: RequestParams) => Promise<HttpResponse<StarportlerningblogQueryGetPostResponse, RpcStatus>>;
 }
 export {};
